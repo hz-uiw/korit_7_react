@@ -9,7 +9,7 @@ function App8(props) {
     return (
         <div className='container'>
             <BookRegister bookList={bookList} setBookList={setBookList}/>
-            <BookSearch />
+            <BookSearch bookList={bookList}/>
         </div>
     );
 }
