@@ -1,8 +1,9 @@
-import React from 'react';
-import "./style/bookSearch.css";
+import React, { useState } from 'react';
+import "./style.css";
 
-function BookSearch({bookTableList, setBookTableList}) {
-    
+function BookSearch({bookList}) {
+
+    const [bookTableList, setBookTableList] = useState([]);
     const [searchValue, setSearchValue] = useState({
         select: "bookName",
         text: "",

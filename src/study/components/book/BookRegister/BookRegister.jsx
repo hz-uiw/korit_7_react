@@ -1,5 +1,5 @@
-import React from 'react';
-import './style/bookRegister.css'
+import React, { useState } from 'react';
+import "./style.css";
 
 function BookRegister({bookList, setBookList}) {
     
@@ -30,15 +30,13 @@ function BookRegister({bookList, setBookList}) {
     }
 
     return (
-        <div className='container'>
-            <div>
-                <h1>도서정보 등록</h1>
-                <div className='register-input'>
-                    <input type="text" placeholder='도서명' name='bookName' value={registerInputValue.bookName} onChange={handleRegisterInputOnchange}/>
-                    <input type="text" placeholder='저자명' name='author' value={registerInputValue.author} onChange={handleRegisterInputOnchange}/>
-                    <input type="text" placeholder='출판사' name='publisher' value={registerInputValue.publisher} onChange={handleRegisterInputOnchange}/>
-                    <button onClick={handleRegisterButtonOnClick}>등록</button>
-                </div>
+        <div>
+            <h1>도서정보 등록</h1>
+            <div className='register-input'>
+                <input type="text" placeholder='도서명' name='bookName' value={registerInputValue.bookName} onChange={handleRegisterInputOnchange}/>
+                <input type="text" placeholder='저자명' name='author' value={registerInputValue.author} onChange={handleRegisterInputOnchange}/>
+                <input type="text" placeholder='출판사' name='publisher' value={registerInputValue.publisher} onChange={handleRegisterInputOnchange}/>
+                <button onClick={handleRegisterButtonOnClick}>등록</button>
             </div>
         </div>
     );

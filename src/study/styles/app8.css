@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 100px auto;
+    width: 70%;
+
+    & > div {
+        width: 48%;
+        border: 1px solid #dbdbdb;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+}
