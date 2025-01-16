@@ -67,7 +67,7 @@ function App7(props) {
             setBookTableList(bookList);
             return;
         }
-
+        // ※※※if문 없이 []로 select를 지정하는 법※※※
         const foundBooks = bookList.filter(book => book[searchValue.select].includes(searchValue.text));
         setBookTableList(foundBooks);
     }
