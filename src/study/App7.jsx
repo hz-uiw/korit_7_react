@@ -32,12 +32,44 @@ function App7(props) {
 
     const [bookTableList, setBookTableList] = useState([]);
     const [searchValue, setSearchValue] = useState({
-        select: "",
+        select: "bookName",
         text: "",
     });
 
+    const searchOptions = [
+        {
+            id: 1,
+            label: "도서명",
+            value: "bookName",
+        },
+        {
+            id: 2,
+            label: "저자명",
+            value: "author",
+        },
+        {
+            id: 3,
+            label: "출판사",
+            value: "publisher",
+        },
+    ];
+
     const handleSearchValueOnChange = (e) => {
-        setSearchValue()
+        setSearchValue({
+            ...searchValue,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    const handleSearchButtonOnClick = () => {
+        // 아무것도 없을 때 조회하면 전체 조회하는 로직
+        if(!searchValue.text.trim()) {
+            setBookTableList(bookList);
+            return;
+        }
+
+        const foundBooks = bookList.filter(book => book[searchValue.select].includes(searchValue.text));
+        setBookTableList(foundBooks);
     }
 
     return (
@@ -54,11 +86,14 @@ function App7(props) {
             <div>
                 <h1>도서정보 조회</h1>
                 <div className='search-items'>
-                    <select name="select" onChange={handleSearchValueOnChange}>
-                        <option value="">도서명</option>
+                    <select name="select" value={searchValue.select} onChange={handleSearchValueOnChange}>
+                        {
+                            searchOptions.map(option => <option key={option.id} value={option.value}>{option.label}</option>)
+                        }
+                        
                     </select>
                     <input type="text" name='text' value={searchValue.text} onChange={handleSearchValueOnChange}/>
-                    <button onClick={}>검색</button>
+                    <button onClick={handleSearchButtonOnClick}>검색</button>
                 </div>
                 <table className='book-table'>
                     <thead>
