@@ -1,0 +1,83 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 100px auto;
+    width: 70%;
+
+    & > div {
+        width: 48%;
+        border: 1px solid #dbdbdb;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+}
+
+.register-input {
+    display: flex;
+    flex-direction: column;
+
+    & > input {
+        height: 40px;
+        border: 1px solid #dbdbdb;
+        outline: none;
+        margin-bottom: 10px;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        font-size: 20px;
+    }
+
+    & > button {
+        background-color: #ffffff;
+        border: 1px solid #dbdbdb;
+        margin-top: 20px;
+        padding: 10px;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+
+        &:hover {
+            background-color: #fafafa;
+        }
+
+        &:active {
+            background-color: #eeeeee;
+        }
+    }
+}
+
+.search-items {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+
+    & > * {
+        margin-left: 5px;
+    }
+
+    & > select,
+    & > input {
+        border: 1px solid #dbdbdb;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        outline: none;
+    }
+
+    & > button {
+        background-color: #ffffff;
+        border: 1px solid #dbdbdb;
+        padding: 5px 15px;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+
+        &:hover {
+            background-color: #fafafa;
+        }
+
+        &:active {
+            background-color: #eeeeee;
+        }        
+    }
+}
