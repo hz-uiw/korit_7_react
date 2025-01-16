@@ -9,13 +9,13 @@ function App9(props) {
     const [inputRefs , setInputRefs] = useState([aRef, bRef, cRef, dRef]);
 
     const handleOnKeyDown = (e) => {
-
         if(e.keyCode !== 13) {
             return;
         }
 
         let currentIndex = 0;
         let nextIndex = 0;
+
         for(let i = 0; i <inputRefs.length; i++) {
             if(inputRefs[i].current === e.target) {
                 currentIndex = i;
@@ -23,14 +23,9 @@ function App9(props) {
             }
         }
 
+        // 삼항연산자 후 대입
         nextIndex = currentIndex + 1 === inputRefs.length ? 0 : currentIndex + 1;
-
         inputRefs[nextIndex].current.focus();
-
-        console.log(inputRefs[0].current === e.target);
-        console.log(inputRefs[1].current === e.target);
-        console.log(inputRefs[2].current === e.target);
-        console.log(inputRefs[3].current === e.target);
     }
 
     return (
