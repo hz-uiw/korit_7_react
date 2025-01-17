@@ -72,13 +72,28 @@ function App11(props) {
         }
 
         if(true) {
-            resolve({response: response}); // response: response로 들어가야하지만 키값 키워드와 밸류값 키워드가 같으면 하나만 입력해도 됨
+            resolve({response: response}); // response: response로 들어가야하지만 키값 키워드와 벨류값 키워드가 같으면 하나만 입력해도 됨
         } else {
             reject();
         }
     });
 
     p3.then((r) => {
+        console.log(r);
+        if(true) {
+            throw new Error("오류!!!");
+        }
+        return {
+            response: {
+                ...r.response,
+                data: {
+                    ...r.response.data,
+                    name: "권민창",
+                    email: "aaa@gmail.com",
+                }
+            }
+        }
+    }).then((r) => {
         console.log(r);
     });
 
@@ -96,7 +111,7 @@ function App11(props) {
         if(false) {
             resolve({response})
         } else {
-            reject(new Error({response}));
+            reject(new Error(JSON.stringify({response})));
         }
     }); 
 
