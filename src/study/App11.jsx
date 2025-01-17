@@ -80,9 +80,11 @@ function App11(props) {
 
     p3.then((r) => {
         console.log(r);
-        if(true) {
-            throw new Error("오류!!!");
-        }
+        // if(true) {
+        //     throw new Error("오류!!!");
+        // }
+        
+        // 두번째 then의 매개변수(r)로 return을 함
         return {
             response: {
                 ...r.response,
