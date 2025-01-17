@@ -43,6 +43,9 @@ function App10(props) {
         setNum1(num1 + 10);
     }
 
+    // useEffect의 함수만 정의되고 console.log("????????");코드가 실행된 후에 mount됨
+    console.log("????????");
+
     return (
         <div>
             <h1>Num1: {num1}</h1>
