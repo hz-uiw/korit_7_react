@@ -29,6 +29,7 @@ function App14(props) {
         let response = null;
         try {
             response = await axios.get("http://localhost:8080/servlet_study_war/api/book");
+            console.log(response)
             console.log(response.data.bookId);
         } catch (error) {
             console.error(error)
