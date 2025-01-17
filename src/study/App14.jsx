@@ -28,7 +28,8 @@ function App14(props) {
     const handleBookRequestOnClick = async() => {
         let response = null;
         try {
-            response = await axios.get("http://localhost:8080/servlet_study_war/api/book")
+            response = await axios.get("http://localhost:8080/servlet_study_war/api/book");
+            console.log(response.data.bookId);
         } catch (error) {
             console.error(error)
         }
