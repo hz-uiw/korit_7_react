@@ -3,16 +3,19 @@ import IndexPage from './pages/IndexPage/IndexPage';
 import WritePage from './pages/WritePage/WritePage';
 import { Global } from '@emotion/react';
 import { global } from './styles/global';
+import MainLayout from './components/MainLayout/MainLayout';
 
 function App() {
   return (
     <>
       <Global styles={global}/>
 
+    <MainLayout>
       <Routes>
         <Route path='/' element={<IndexPage />} />
         <Route path='/write' element={<WritePage />}/>
       </Routes>
+    </MainLayout>
     </>
   );
 }
@@ -20,6 +23,7 @@ function App() {
 export default App;
 // npm install react-router-dom
 // npm install @emotion/react
+// npm install react-icons
 
 
 // file > preferences > configure snippets > javascriptjson.json에서 설정
