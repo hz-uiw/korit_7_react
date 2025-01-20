@@ -36,24 +36,63 @@ export const leftContainer = css`
         display: flex;
 
         & li {
-            margin-left: 30px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+            padding: 5px 10px;
             font-weight: 600;
             transition: all 0.1s ease-in-out;
             color: #666666;
-
+            
+            
+            
+            & > svg {
+                margin-right: 5px;
+            }
+            
             &:hover {
                 transform: scale(110%);
                 color: #222222    ;
             }
         }
     }
-`;
+    `;
 
 export const rightContainer = css`
     display: flex;
     align-items: center;
-
+    
     & > ul {
         display: flex;
+        
+        & li {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            padding: 5px 3px 3px;
+            font-size: 14px;
+            font-weight: 600;
+            
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                border: 0px solid #222222;
+                width: 0%;
+                transition: all 0.5s ease-in-out;
+            }
+            
+            &:hover::after {
+                border: 1px solid #222222;
+                width: 100%;
+            }
+
+            & > svg {
+                margin-right: 5px;
+            }
+        }
     }
 `;
