@@ -23,7 +23,11 @@ function App() {
 export default App;
 // npm install react-router-dom
 // npm install @emotion/react
+
+// vscode-styled-component
+
 // npm install react-icons
+// npm install react-quill
 
 
 // file > preferences > configure snippets > javascriptjson.json에서 설정
