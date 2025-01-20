@@ -20,3 +20,16 @@ function App() {
 export default App;
 // npm install react-router-dom
 // npm install @emotion/react
+
+
+// file > preferences > configure snippets > javascriptjson.json에서 설정
+// "Emotion": {
+//   "Print to console": {
+//     "prefix": "ej",
+//     "body": [
+//       "/**@jsxImportSource @emotion/react */",
+//       "import * as s from './style';"
+//     ],
+//     "description": "jsx @emotion/react import"
+//   }
+// }
