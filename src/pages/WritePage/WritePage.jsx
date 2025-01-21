@@ -1,7 +1,8 @@
 /**@jsxImportSource @emotion/react */
 import * as s from './style';
 import ReactQuill from 'react-quill';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function WritePage(props) {
     const toolbarOptions = [
@@ -33,16 +34,55 @@ function WritePage(props) {
         head.appendChild(link);
     }, []);
 
+    const [inputValue, setInputValue] = useState({
+        title : "",
+        content: "",
+    });
+
+    const handleInputOnchange = (e) => {
+        setInputValue({
+            ...inputValue,
+            [e.target.name]: e.target.value,
+        });
+    }
+    
+    // Quill을 함수 사용법: 매개변수로 value, 이벤트 안쓰고 바로 value값을 가져옴
+    const handleQuillOnChange = (value) => {
+        setInputValue({
+            ...inputValue,
+            content: value,
+        });
+    }
+
+    const handleWriteSubmitOnClick = async () => {
+        try {
+            // axios는 json으로 보냄
+            const response = await axios.post("http://localhost:8080/servlet_study_war/api/board", inputValue);
+        } catch(error) {
+
+        }
+    }
+
 
     return (
         <div>
             <div css={s.headerLayout}>
-                <button>작성하기</button>
+                <button onClick={handleWriteSubmitOnClick}>작성하기</button>
+            </div>
+            <div css={s.titleLayout}>
+                <input type="text" placeholder='여기에 제목을 입력하세요.' name='title' value={inputValue.title} onChange={handleInputOnchange}/>
             </div>
             <ReactQuill
                 modules={{
-                    toolbar: toolbarOptions
+                    toolbar: toolbarOptions,
                 }}
+                style={{
+                    boxSizing: "border-box",
+                    width: "100%",
+                    height: "600px",
+                }}
+                value={inputValue.content}
+                onChange={handleQuillOnChange}
             />
         </div>
     );
