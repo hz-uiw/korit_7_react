@@ -1,18 +1,25 @@
 /**@jsxImportSource @emotion/react */
-import axios from 'axios';
+import { Link, useSearchParams } from 'react-router-dom';
 import * as s from './style';
-import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 
 function SigninPage(props) {
+    const [searchParams] = useSearchParams();
+
     const [inputRefs] = useState([useRef(), useRef(), useRef(), useRef()]);
-    const [buttonRefs] = useState([useRef() ]);
+    const [buttonRefs] = useState([useRef()]);
     const [inputValue, setInputValue] = useState({
         username: "",
         password: "",
-        name: "",
-        email: "",
-    });
+    }); 
+
+    useEffect(() => {
+        setInputValue({
+            ...inputValue,
+            username: searchParams.get("username"),
+        })
+    }, [searchParams.get("username")]); 
 
     const handleInputOnChange = (e) => {
         setInputValue({
@@ -30,24 +37,24 @@ function SigninPage(props) {
                     break;
                 }
             }
-            // 마지막 인덱스에서 엔터를 눌리면 가입버튼 클릭되는 함수수
-            // inputRefs. length - 1 마지막 인덱스
-            if(foundIndex === inputRefs. length - 1) {
+
+            if(foundIndex === inputRefs.length - 1) {
                 buttonRefs[0].current.click();
                 return;
             }
+
             inputRefs[foundIndex + 1].current.focus();
         }
     }
 
     const handleSigninSubmitOnClick = async () => {
         try {
-            const response = axios.post("http://localhost:8080/servlet_study_war/api/signup", inputValue);
-        } catch(error) {
-            console.log(error);
+            const response = await axios.post("http://localhost:8080/servlet_study_war/api/signin", inputValue);
+            console.log(response);
+        } catch (error) {
+            console.error(error);
         }
     }
-
 
     return (
         <div css={s.layout}>
@@ -58,15 +65,15 @@ function SigninPage(props) {
                     value={inputValue.username} 
                     onChange={handleInputOnChange} 
                     onKeyDown={handleInputOnKeyDown} 
-                    ref={inputRefs[0]}/>
+                    ref={ inputRefs[0] } />
                 <input type="password" 
                     placeholder='비밀번호' 
                     name='password' 
-                    value={inputValue.password} 
-                    onChange={handleInputOnChange} 
-                    onKeyDown={handleInputOnKeyDown} 
-                    ref={inputRefs[1]}/>
-                <button onClick={handleSigninSubmitOnClick} ref={buttonRefs[0]}>가입</button>
+                    value={ inputValue.password } 
+                    onChange={ handleInputOnChange } 
+                    onKeyDown={ handleInputOnKeyDown } 
+                    ref={ inputRefs[1] } />
+                <button onClick={handleSigninSubmitOnClick} ref={ buttonRefs[0] }>로그인</button>
             </div>
             <div css={s.footer}>
                 <span>계정이 없으신가요? </span>

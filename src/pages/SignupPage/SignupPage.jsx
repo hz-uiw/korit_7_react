@@ -1,21 +1,21 @@
 /**@jsxImportSource @emotion/react */
-import { use, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import * as s from './style';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 function SignupPage(props) {
+    const navigate = useNavigate();
     // useStatus에서 set함수가 필요없으면 없어도 useStatus 사용 가능능
     // 요소의 개체를 직접 접근하기 위해서 useRef() 사용
-    const [inputRefs] = useState([useRef(), useRef(), useRef(), useRef()]);
-    const [buttonRefs] = useState([useRef() ]);
-    const [inputValue, setInputValue] = useState({
+    const [ inputRefs ] = useState([ useRef(), useRef(), useRef(), useRef() ]);
+    const [ buttonRefs ] = useState([ useRef() ]);
+    const [ inputValue, setInputValue ] = useState({
         username: "",
         password: "",
         name: "",
         email: "",
-    });
+    }); 
 
     const handleInputOnChange = (e) => {
         setInputValue({
@@ -23,6 +23,7 @@ function SignupPage(props) {
             [e.target.name]: e.target.value,
         });
     }
+
     const handleInputOnKeyDown = (e) => {
         if(e.keyCode === 13) {
             let foundIndex = -1;
@@ -32,27 +33,29 @@ function SignupPage(props) {
                     break;
                 }
             }
-            // 마지막 인덱스에서 엔터를 눌리면 가입버튼 클릭되는 함수수
+
+            // 마지막 인덱스에서 엔터를 눌리면 가입버튼 클릭되는 함수
             // inputRefs. length - 1 마지막 인덱스
-            if(foundIndex === inputRefs. length - 1) {
+            if(foundIndex === inputRefs.length - 1) {
                 buttonRefs[0].current.click();
                 return;
             }
+
             inputRefs[foundIndex + 1].current.focus();
         }
     }
 
     const handleSignupSubmitOnClick = async () => {
         try {
-            const response = axios.post("http://localhost:8080/servlet_study_war/api/signup", inputValue);
-            alert("회원가입 성공!")
-        } catch(error) {
-            console.log(error);
+            const response = await axios.post("http://localhost:8080/servlet_study_war/api/signup", inputValue);
+            console.log(response);
+            alert("회원가입 완료");
+            navigate(`/signin?username=${response.data.data.username}`);
+        } catch (error) {
+            
         }
     }
 
-
-    
     return (
         <div css={s.layout}>
             <div css={s.main}>
@@ -62,29 +65,29 @@ function SignupPage(props) {
                     value={inputValue.username} 
                     onChange={handleInputOnChange} 
                     onKeyDown={handleInputOnKeyDown} 
-                    ref={inputRefs[0]}/>
+                    ref={ inputRefs[0] } />
                 <input type="password" 
                     placeholder='비밀번호' 
                     name='password' 
-                    value={inputValue.password} 
-                    onChange={handleInputOnChange} 
-                    onKeyDown={handleInputOnKeyDown} 
-                    ref={inputRefs[1]}/>
+                    value={ inputValue.password } 
+                    onChange={ handleInputOnChange } 
+                    onKeyDown={ handleInputOnKeyDown } 
+                    ref={ inputRefs[1] } />
                 <input type="text" 
                     placeholder='성명' 
                     name='name' 
-                    value={inputValue.name} 
-                    onChange={handleInputOnChange} 
-                    onKeyDown={handleInputOnKeyDown} 
-                    ref={inputRefs[2]}/>
+                    value={ inputValue.name } 
+                    onChange={ handleInputOnChange } 
+                    onKeyDown={ handleInputOnKeyDown } 
+                    ref={ inputRefs[2] } />
                 <input type="text" 
                     placeholder='이메일 주소' 
                     name='email' 
-                    value={inputValue.email} 
-                    onChange={handleInputOnChange} 
-                    onKeyDown={handleInputOnKeyDown} 
-                    ref={inputRefs[3]}/>
-                <button onClick={handleSignupSubmitOnClick} ref={buttonRefs[0]}>가입</button>
+                    value={ inputValue.email } 
+                    onChange={ handleInputOnChange } 
+                    onKeyDown={ handleInputOnKeyDown } 
+                    ref={ inputRefs[3] } />
+                <button onClick={handleSignupSubmitOnClick} ref={ buttonRefs[0] }>가입</button>
             </div>
             <div css={s.footer}>
                 <span>계정이 있으신가요? </span>
