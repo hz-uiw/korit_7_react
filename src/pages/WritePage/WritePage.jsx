@@ -54,10 +54,17 @@ function WritePage(props) {
         });
     }
 
+    // 클릭하면 Promise 호출하는 함수
     const handleWriteSubmitOnClick = async () => {
         try {
             // axios는 json으로 보냄
+            // await으로 axios.post의 then을 response에 대입입
             const response = await axios.post("http://localhost:8080/servlet_study_war/api/board", inputValue);
+            // 위의 코드와 같은 코드
+            // axios.post("http://localhost:8080/servlet_study_war/api/board", inputValue)
+            // .then(response => {
+            //     console.log(response)
+            // });
         } catch(error) {
 
         }
