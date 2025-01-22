@@ -65,8 +65,10 @@ function WritePage(props) {
             // .then(response => {
             //     console.log(response)
             // });
+            console.log(response)
+            alert("게시글 작성 완료!!")
         } catch(error) {
-
+            console.log(error)
         }
     }
 
