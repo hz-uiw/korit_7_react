@@ -45,6 +45,7 @@ function SignupPage(props) {
     const handleSignupSubmitOnClick = async () => {
         try {
             const response = axios.post("http://localhost:8080/servlet_study_war/api/signup", inputValue);
+            alert("회원가입 성공!")
         } catch(error) {
             console.log(error);
         }
