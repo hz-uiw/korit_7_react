@@ -5,11 +5,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 function SigninPage(props) {
-    const [searchParams] = useSearchParams();
+    const [ searchParams ] = useSearchParams();
 
-    const [inputRefs] = useState([useRef(), useRef(), useRef(), useRef()]);
-    const [buttonRefs] = useState([useRef()]);
-    const [inputValue, setInputValue] = useState({
+    const [ inputRefs ] = useState([ useRef(), useRef(), useRef(), useRef() ]);
+    const [ buttonRefs ] = useState([ useRef() ]);
+    const [ inputValue, setInputValue ] = useState({
         username: "",
         password: "",
     }); 
