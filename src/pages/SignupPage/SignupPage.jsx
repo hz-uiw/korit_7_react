@@ -52,7 +52,7 @@ function SignupPage(props) {
             alert("회원가입 완료");
             navigate(`/signin?username=${response.data.data.username}`);
         } catch (error) {
-            
+            console.error(error)
         }
     }
 
