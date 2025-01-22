@@ -1,26 +1,28 @@
 /**@jsxImportSource @emotion/react */
-import { use } from 'react';
+import { use, useState } from 'react';
 import * as s from './style';
 import React, { useRef } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function SignupPage(props) {
     // useStatus에서 set함수가 필요없으면 없어도 useStatus 사용 가능능
     // 요소의 개체를 직접 접근하기 위해서 useRef() 사용
     const [inputRefs] = useState([useRef(), useRef(), useRef(), useRef()]);
     const [buttonRefs] = useState([useRef() ]);
-    const [inputValue, setInputValue] = usestate({
+    const [inputValue, setInputValue] = useState({
         username: "",
         password: "",
         name: "",
         email: "",
     });
 
-    const handleInputOnChange = () => {
+    const handleInputOnChange = (e) => {
         setInputValue({
             ...inputValue,
             [e.target.name]: e.target.value,
         });
-
+    }
     const handleInputOnKeyDown = (e) => {
         if(e.keyCode === 13) {
             let foundIndex = -1;
@@ -40,19 +42,19 @@ function SignupPage(props) {
         }
     }
 
-    const handleSignupSubmitOnClick = () => {
+    const handleSignupSubmitOnClick = async () => {
         try {
             const response = axios.post("http://localhost:8080/servlet_study_war/api/signup", inputValue);
         } catch(error) {
-
+            console.log(error);
         }
     }
 
 
-    }
+    
     return (
-        <div>
-            <div>
+        <div css={s.layout}>
+            <div css={s.main}>
                 <input type="text" 
                     placeholder='사용자 이름' 
                     name='username' 
@@ -81,9 +83,9 @@ function SignupPage(props) {
                     onChange={handleInputOnChange} 
                     onKeyDown={handleInputOnKeyDown} 
                     ref={inputRefs[3]}/>
-                <button ref={buttonRefs[0]}>가입</button>
+                <button onClick={handleSignupSubmitOnClick} ref={buttonRefs[0]}>가입</button>
             </div>
-            <div>
+            <div css={s.footer}>
                 <span>계정이 있으신가요? </span>
                 <Link to={"/signin"}>로그인</Link>
             </div>
