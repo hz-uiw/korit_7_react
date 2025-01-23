@@ -6,8 +6,10 @@ import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const queryClient = new QueryClient();
+const queryClient = new QueryClient();  // 전역 상태 저장소 생성
 
+// RecoilRoot: 지역안에서의 전역 상태를 만든다 atom 에서 상태를 관리 (Recoil)
+// QueryClientProvider: 서버와 통신을 주고 받는 상태를 관리 (QueryClient)
 root.render(
   <RecoilRoot>
     <QueryClientProvider client={queryClient}>

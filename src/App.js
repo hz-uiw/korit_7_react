@@ -15,7 +15,7 @@ import { useQuery } from 'react-query';
 
 function App() {
   // 상태 저장
-  const [userId, setUserId] = useRecoilState(authUserIdState);
+  // const [userId, setUserId] = useRecoilState(authUserIdState);
   const location = useLocation();
   
   const authenticatedUser = async () => {
@@ -38,22 +38,23 @@ function App() {
   } 
 
   const authenticatedUserQuery = useQuery( // userQuery -> useEffect와 비슷하게 사용
-    ["authenticatedUserQ"],
-    // 렌더링 후에 함수 실행
+    ["authenticatedUserQuery"], // useQuery 변수명을 대괄호 안에 입력
+    // 렌더링 후에 authenticatedUser 함수 실행
     authenticatedUser,
     {
-      // Promise - then
-      onSuccess: (response) => {
-        console.log(response);
-        setUserId(response.data.body);
-      },
-      // Promise - catch
-      onError: (error) => {
-        console.error(error)
-        setUserId(0);
-      },
+      // // Promise - then과 같은 개념, response가 응답하면 userId 변경경
+      // onSuccess: (response) => {
+      //   console.log(response);
+      //   setUserId(response.data.body);
+      // },
+      // // Promise - catch과 같은 개념, response가 무응답이거나 error가 뜨면 userId를 0으로 설정
+      // onError: (error) => {
+      //   console.error(error)
+      //   setUserId(0);
+      // },
       // enabled가 true 값이 돼야 요청이 날라감
-      enabled: !!localStorage.getItem("AcceseeToken"),
+      refetchOnWindowFocus: false,
+      enabled: !!localStorage.getItem("AccessToken"),
     }
   );
 
@@ -61,6 +62,11 @@ function App() {
     <>
       <Global styles={global}/>
 
+    {
+      authenticatedUserQuery.isLoading 
+      ? 
+        <></>
+      :
     <MainLayout>
       <Routes>
         <Route path='/' element={<IndexPage />} />
@@ -70,6 +76,7 @@ function App() {
         <Route path='/signin' element={<SigninPage />} />
       </Routes>
     </MainLayout>
+    }
     </>
   );
 }

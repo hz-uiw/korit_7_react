@@ -6,33 +6,38 @@ import {LuUserRoundPlus, LuLogOut, LuUser, LuLogIn, LuLayoutList, LuNotebookPen}
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { authUserIdState } from '../../atoms/authAtom';
+import { useQuery, useQueryClient } from 'react-query';
 
 
 function MainHeader(props) {
-    const [userId, setUserId] = useRecoilState(authUserIdState);
-    const [loadStatus, setLoadStatus] = useState("idle");   // idle == 대기상태, loading == 로딩 중, success
+    const queryClient = useQueryClient();
+    // const [userId, setUserId] = useRecoilState(authUserIdState);
+    // const [loadStatus, setLoadStatus] = useState("idle");   // idle == 대기상태, loading == 로딩 중, success
 
-    const getUserApi = async (userId) => {
-        try {
-            const response = await axios.get("http://localhost:8080/servlet_study_war/api/user", {
-                headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("AccessToken"),
-                },
-                params: {
-                    "userId": userId,
-                }
-            });
-            console.log(response);
-        } catch (error) {
-            
-        }
+    const userId = queryClient.getQueryData(["authenticatedUserQuery"])?.data.body;
+    // console.log(queryClient.isFetching({
+    //     queryKey: ["authenticatedUserQuery"],
+    // }));
+
+    const getUserApi = async () => {
+        return await axios.get("http://localhost:8080/servlet_study_war/api/user", {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("AccessToken"),
+            },
+            params: {
+                "userId": userId,
+            }
+        });
     }
 
-    useEffect(() => {
-        if(!!userId) {
-            getUserApi(userId);
+    const getUserQuery = useQuery(
+        ["getUserQuery", userId],
+        getUserApi,
+        {
+            refetchOnWindowFocus: false,
+            enabled: !!userId,
         }
-    }, [userId]);
+    );
 
     return (
         <div css={s.layout}>
@@ -70,7 +75,7 @@ function MainHeader(props) {
                 <ul>
                     <Link to={"/signin"}>
                         <li>
-                            <LuLogIn />로그인
+                            <LuLogIn />{getUserQuery.isLoading ? "" : getUserQuery.data.data.username}
                         </li>
                     </Link>
                     <Link to={"/signup"}>
