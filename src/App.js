@@ -11,35 +11,52 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { authUserIdState } from './atoms/authAtom';
+import { useQuery } from 'react-query';
 
 function App() {
   // 상태 저장
   const [userId, setUserId] = useRecoilState(authUserIdState);
-
   const location = useLocation();
   
-  const authenticatedUser = async (accessToken) => {
-    try {
-      const response = await axios.get("http://localhost:8080/servlet_study_war/api/authenticated", {
-        headers: {
-          "Authorization": `Bearer ${accessToken}`,
-        }
-      });
-      setUserId(response.data.body);
-
-
-    } catch(error) {
-      console.error(error);
-      setUserId(0);
-    }
+  const authenticatedUser = async () => {
+    // let response = null;
+    // try {
+    //   const response = await axios.get("http://localhost:8080/servlet_study_war/api/authenticated", {
+    //     headers: {
+    //       "Authorization": `Bearer ${localStorage.getItem("Access Token")}`,
+    //     }
+    //   });
+    // } catch(error) {
+    //   console.error(error);
+    // }
+    // return response;
+    return await axios.get("http://localhost:8080/servlet_study_war/api/authenticated", {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("AccessToken")}`,
+      }
+    });
   } 
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("AccessToken");
-    if(!!accessToken) {
-      authenticatedUser(accessToken);
+  const authenticatedUserQuery = useQuery( // userQuery -> useEffect와 비슷하게 사용
+    ["authenticatedUserQ"],
+    // 렌더링 후에 함수 실행
+    authenticatedUser,
+    {
+      // Promise - then
+      onSuccess: (response) => {
+        console.log(response);
+        setUserId(response.data.body);
+      },
+      // Promise - catch
+      onError: (error) => {
+        console.error(error)
+        setUserId(0);
+      },
+      // enabled가 true 값이 돼야 요청이 날라감
+      enabled: !!localStorage.getItem("AcceseeToken"),
     }
-  },[location.pathname]);
+  );
+
   return (
     <>
       <Global styles={global}/>
@@ -80,3 +97,4 @@ export default App;
 // }
 
 // npm install recoil
+// npm install react-query
