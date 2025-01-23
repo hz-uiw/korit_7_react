@@ -1,11 +1,8 @@
 /**@jsxImportSource @emotion/react */
 import * as s from './style';
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
 import {LuUserRoundPlus, LuLogOut, LuUser, LuLogIn, LuLayoutList, LuNotebookPen} from "react-icons/lu";
 import axios from 'axios';
-import { useRecoilState } from 'recoil';
-import { authUserIdState } from '../../atoms/authAtom';
 import { useQuery, useQueryClient } from 'react-query';
 
 
@@ -45,14 +42,10 @@ function MainHeader(props) {
                 <Link to={"/"}><h1>미니 게시판 프로젝트</h1></Link>
                 <ul>
                     <Link to={"/list"}>
-                        <li>
-                            <LuLayoutList />게시글 목록
-                        </li>
+                        <li><LuLayoutList />게시글 목록</li>
                     </Link>
                     <Link to={"/write"}>
-                        <li>
-                            <LuNotebookPen />게시글 작성
-                        </li>
+                        <li><LuNotebookPen />게시글 작성</li>
                     </Link>
                 </ul>
             </div>
@@ -61,27 +54,19 @@ function MainHeader(props) {
                     !!userId ?
                     <ul>
                     <Link to={"/mypage"}>
-                        <li>
-                            <LuUser />사용자이름
-                        </li>
+                        <li><LuUser />{getUserQuery.isLoading ? "" : getUserQuery.data.data.username}</li>
                     </Link>
                     <Link to={"/logout"}>
-                        <li>
-                            <LuLogOut />로그아웃
-                        </li>
+                        <li><LuLogOut />로그아웃</li>
                     </Link>
                 </ul>
                 :
                 <ul>
                     <Link to={"/signin"}>
-                        <li>
-                            <LuLogIn />{getUserQuery.isLoading ? "" : getUserQuery.data.data.username}
-                        </li>
+                        <li><LuLogIn />로그인</li>
                     </Link>
                     <Link to={"/signup"}>
-                        <li>
-                            <LuUserRoundPlus />회원가입
-                        </li>
+                        <li><LuUserRoundPlus />회원가입</li>
                     </Link>
                 </ul>
                 }

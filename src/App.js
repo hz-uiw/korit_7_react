@@ -7,10 +7,7 @@ import MainLayout from './components/MainLayout/MainLayout';
 import ListPage from './pages/ListPage/ListPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import SigninPage from './pages/SigninPage/SigninPage';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRecoilState } from 'recoil';
-import { authUserIdState } from './atoms/authAtom';
 import { useQuery } from 'react-query';
 
 function App() {
@@ -57,6 +54,8 @@ function App() {
     }
   );
 
+  console.log(authenticatedUserQuery.isLoading);
+
   return (
     <>
       <Global styles={global}/>
@@ -66,15 +65,15 @@ function App() {
       ? 
         <></>
       :
-    <MainLayout>
-      <Routes>
-        <Route path='/' element={<IndexPage />} />
-        <Route path='/write' element={<WritePage />}/>
-        <Route path='/list' element={<ListPage />}/>
-        <Route path='/signup' element={<SignupPage />} />
-        <Route path='/signin' element={<SigninPage />} />
-      </Routes>
-    </MainLayout>
+        <MainLayout>
+          <Routes>
+            <Route path='/' element={<IndexPage />} />
+            <Route path='/write' element={<WritePage />}/>
+            <Route path='/list' element={<ListPage />}/>
+            <Route path='/signup' element={<SignupPage />} />
+            <Route path='/signin' element={<SigninPage />} />
+          </Routes>
+        </MainLayout>
     }
     </>
   );
