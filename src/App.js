@@ -15,7 +15,6 @@ import { useQuery } from 'react-query';
 
 function App() {
   // 상태 저장
-  // const [userId, setUserId] = useRecoilState(authUserIdState);
   const location = useLocation();
   
   const authenticatedUser = async () => {
@@ -39,8 +38,8 @@ function App() {
 
   const authenticatedUserQuery = useQuery( // userQuery -> useEffect와 비슷하게 사용
     ["authenticatedUserQuery"], // useQuery 변수명을 대괄호 안에 입력
-    // 렌더링 후에 authenticatedUser 함수 실행
-    authenticatedUser,
+    // 요청 함수
+    authenticatedUser,  // 바로 axios에 return해줘야함
     {
       // // Promise - then과 같은 개념, response가 응답하면 userId 변경경
       // onSuccess: (response) => {
