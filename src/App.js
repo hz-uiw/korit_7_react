@@ -15,6 +15,11 @@ function App() {
   const location = useLocation();
   
   const authenticatedUser = async () => {
+    return await axios.get("http://localhost:8080/servlet_study_war/api/authenticated", {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("AccessToken")}`,
+      }
+    });
     // let response = null;
     // try {
     //   const response = await axios.get("http://localhost:8080/servlet_study_war/api/authenticated", {
@@ -26,13 +31,12 @@ function App() {
     //   console.error(error);
     // }
     // return response;
-    return await axios.get("http://localhost:8080/servlet_study_war/api/authenticated", {
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("AccessToken")}`,
-      }
-    });
   } 
 
+  // useQuery로 ["키"], 요청함수(axios), {옵션}을 지정
+    // => ["authenticatedUserQuery"]로 authenticatedUser의 함수 return값 axios를 { enabled가 참이면 요청청}
+    
+  
   const authenticatedUserQuery = useQuery( // userQuery -> useEffect와 비슷하게 사용
     ["authenticatedUserQuery"], // useQuery 변수명을 대괄호 안에 입력
     // 요청 함수
