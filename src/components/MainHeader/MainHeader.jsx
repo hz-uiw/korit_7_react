@@ -6,6 +6,7 @@ import {LuUserRoundPlus, LuLogIn, LuLayoutList, LuNotebookPen} from "react-icons
 
 
 function MainHeader(props) {
+    const [userId, setUserId] = useRecoilState(authUserIdState);
     return (
         <div css={s.layout}>
             <div css={s.leftContainer}>

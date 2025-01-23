@@ -9,10 +9,12 @@ import SignupPage from './pages/SignupPage/SignupPage';
 import SigninPage from './pages/SigninPage/SigninPage';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { authUserIdState } from './atoms/authAtom';
 
 function App() {
   // 상태 저장
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useRecoilState(authUserIdState);
 
   const location = useLocation();
   
