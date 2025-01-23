@@ -7,10 +7,13 @@ import MainLayout from './components/MainLayout/MainLayout';
 import ListPage from './pages/ListPage/ListPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import SigninPage from './pages/SigninPage/SigninPage';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function App() {
+  // 상태 저장
+  const [userId, setUserId] = useState(0);
+
   const location = useLocation();
   
   const authenticatedUser = async (accessToken) => {
@@ -20,9 +23,12 @@ function App() {
           "Authorization": `Bearer ${accessToken}`,
         }
       });
-      console.log(response);
+      setUserId(response.data.body);
+
+
     } catch(error) {
       console.error(error);
+      setUserId(0);
     }
   } 
 
@@ -70,3 +76,5 @@ export default App;
 //     "description": "jsx @emotion/react import"
 //   }
 // }
+
+// npm install recoil
