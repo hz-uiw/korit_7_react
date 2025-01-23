@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import IndexPage from './pages/IndexPage/IndexPage';
 import WritePage from './pages/WritePage/WritePage';
 import { Global } from '@emotion/react';
@@ -7,8 +7,31 @@ import MainLayout from './components/MainLayout/MainLayout';
 import ListPage from './pages/ListPage/ListPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import SigninPage from './pages/SigninPage/SigninPage';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
+  const location = useLocation();
+  
+  const authenticatedUser = async (accessToken) => {
+    try {
+      const response = await axios.get("http://localhost:8080/servlet_study_war/api/authenticated", {
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        }
+      });
+      console.log(response);
+    } catch(error) {
+      console.error(error);
+    }
+  } 
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("AccessToken");
+    if(!!accessToken) {
+      authenticatedUser(accessToken);
+    }
+  },[location.pathname]);
   return (
     <>
       <Global styles={global}/>
