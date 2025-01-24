@@ -53,6 +53,7 @@ function App() {
       //   setUserId(0);
       // },
       // enabled가 true 값이 돼야 요청이 날라감
+      retry: 0,
       refetchOnWindowFocus: false,
       enabled: !!localStorage.getItem("AccessToken"),
     }

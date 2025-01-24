@@ -1,6 +1,6 @@
 /**@jsxImportSource @emotion/react */
 import * as s from './style';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {LuUserRoundPlus, LuLogOut, LuUser, LuLogIn, LuLayoutList, LuNotebookPen} from "react-icons/lu";
 import axios from 'axios';
 import { useQuery, useQueryClient } from 'react-query';
@@ -16,6 +16,7 @@ function MainHeader(props) {
     // console.log(queryClient.isFetching({
     //     queryKey: ["authenticatedUserQuery"],
     // }));
+    const navigate = useNavigate();
 
     const getUserApi = async () => {
         return await axios.get("http://localhost:8080/servlet_study_war/api/user", {
@@ -37,6 +38,12 @@ function MainHeader(props) {
         }
     );
 
+    const handleLogoutOnClick = () => {
+        localStorage.removeItem("AccessToken");
+        queryClient.invalidateQueries(["authenticatedUserQuery"]);
+        navigate("/signin");
+    }
+
     return (
         <div css={s.layout}>
             <div css={s.leftContainer}>
@@ -55,11 +62,11 @@ function MainHeader(props) {
                     !!userId ?
                     <ul>
                     <Link to={"/mypage"}>
-                        <li><LuUser />{getUserQuery.isLoading ? "" : getUserQuery.data.data.username}</li>
+                        <li><LuUser />{getUserQuery.isLoading ? "" : getUserQuery.data.data.body.username}</li>
                     </Link>
-                    <Link to={"/logout"}>
+                    <a href='javascript: void(0)' onClick={handleLogoutOnClick}>
                         <li><LuLogOut />로그아웃</li>
-                    </Link>
+                    </a>
                 </ul>
                 :
                 <ul>
