@@ -6,10 +6,10 @@ import axios from 'axios';
 
 function SigninPage(props) {
     const navigate = useNavigate();
-    const [ searchParams ] = useSearchParams();
-    const [ inputRefs ] = useState([ useRef(), useRef() ]);
-    const [ buttonRefs ] = useState([ useRef() ]);
-    const [ inputValue, setInputValue ] = useState({
+    const [searchParams] = useSearchParams();
+    const [inputRefs] = useState([useRef(), useRef()]);
+    const [buttonRefs] = useState([useRef()]);
+    const [inputValue, setInputValue ] = useState({
         username: "",
         password: "",
     }); 
@@ -72,10 +72,10 @@ function SigninPage(props) {
                     placeholder='비밀번호' 
                     name='password' 
                     value={ inputValue.password } 
-                    onChange={ handleInputOnChange } 
-                    onKeyDown={ handleInputOnKeyDown } 
-                    ref={ inputRefs[1] } />
-                <button onClick={handleSigninSubmitOnClick} ref={ buttonRefs[0] }>로그인</button>
+                    onChange={handleInputOnChange} 
+                    onKeyDown={handleInputOnKeyDown} 
+                    ref={inputRefs[1]} />
+                <button onClick={handleSigninSubmitOnClick} ref={buttonRefs[0]}>로그인</button>
             </div>
             <div css={s.footer}>
                 <span>계정이 없으신가요? </span>
