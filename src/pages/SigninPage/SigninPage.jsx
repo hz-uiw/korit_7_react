@@ -7,7 +7,7 @@ import axios from 'axios';
 function SigninPage(props) {
     const navigate = useNavigate();
     const [ searchParams ] = useSearchParams();
-    const [ inputRefs ] = useState([ useRef(), useRef(), useRef(), useRef() ]);
+    const [ inputRefs ] = useState([ useRef(), useRef() ]);
     const [ buttonRefs ] = useState([ useRef() ]);
     const [ inputValue, setInputValue ] = useState({
         username: "",
