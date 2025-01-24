@@ -11,6 +11,7 @@ function MainHeader(props) {
     // const [userId, setUserId] = useRecoilState(authUserIdState);
     // const [loadStatus, setLoadStatus] = useState("idle");   // idle == 대기상태, loading == 로딩 중, success
 
+    // getQueryData -> query의 데이터를 가져온다
     const userId = queryClient.getQueryData(["authenticatedUserQuery"])?.data.body;
     // console.log(queryClient.isFetching({
     //     queryKey: ["authenticatedUserQuery"],
