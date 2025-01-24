@@ -9,11 +9,13 @@ import SignupPage from './pages/SignupPage/SignupPage';
 import SigninPage from './pages/SigninPage/SigninPage';
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
+import { accessTokenAtomState } from './atoms/authAtom';
 
 function App() {
   // 상태 저장
   const location = useLocation();
-  
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtomState);
   const authenticatedUser = async () => {
     return await axios.get("http://localhost:8080/servlet_study_war/api/authenticated", {
       headers: {
@@ -55,7 +57,7 @@ function App() {
       // enabled가 true 값이 돼야 요청이 날라감
       retry: 0,
       refetchOnWindowFocus: false,
-      enabled: !!localStorage.getItem("AccessToken"),
+      enabled: !!accessToken,
     }
   );
 

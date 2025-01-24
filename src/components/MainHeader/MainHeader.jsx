@@ -4,9 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import {LuUserRoundPlus, LuLogOut, LuUser, LuLogIn, LuLayoutList, LuNotebookPen} from "react-icons/lu";
 import axios from 'axios';
 import { useQuery, useQueryClient } from 'react-query';
+import { useSetRecoilState } from 'recoil';
+import { accessTokenAtomState } from '../../atoms/authAtom';
 
 
 function MainHeader(props) {
+    const setAccessToken = useSetRecoilState(accessTokenAtomState);
+    const navigate = useNavigate();
     const queryClient = useQueryClient();
     // const [userId, setUserId] = useRecoilState(authUserIdState);
     // const [loadStatus, setLoadStatus] = useState("idle");   // idle == 대기상태, loading == 로딩 중, success
@@ -16,7 +20,6 @@ function MainHeader(props) {
     // console.log(queryClient.isFetching({
     //     queryKey: ["authenticatedUserQuery"],
     // }));
-    const navigate = useNavigate();
 
     const getUserApi = async () => {
         return await axios.get("http://localhost:8080/servlet_study_war/api/user", {
@@ -40,7 +43,8 @@ function MainHeader(props) {
 
     const handleLogoutOnClick = () => {
         localStorage.removeItem("AccessToken");
-        queryClient.invalidateQueries(["authenticatedUserQuery"]);
+        setAccessToken(localStorage.getItem("AccessToken"));
+        queryClient.removeQueries(["authenticatedUserQuery"]);
         navigate("/signin");
     }
 
